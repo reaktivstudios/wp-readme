@@ -81,7 +81,7 @@ function wp_readme_convert_string( $string ) {
 	$string = preg_replace( '/```([^\n`]*?)\n(.*?)\n```/us', '<pre>$2</pre>', $string );
 
 	// Fix line breaks before =
-	$string = preg_replace( '/(=+[^\r\n=]+)(\r\n)( =+)', '$1$3', $string );
+	$string = preg_replace( '/(=+[^\r\n=]+)(\r\n)( =+)/', '$1$3', $string );
 
 	return $string;
 }
