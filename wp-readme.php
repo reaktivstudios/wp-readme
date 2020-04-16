@@ -23,7 +23,7 @@ function wp_readme_find( $target_dir = '.' ) {
 			}
 		}
 	}
-	
+
 	return '';
 }
 
@@ -52,7 +52,7 @@ function wp_readme_replace( $target_file ) {
 	if ( ! @file_put_contents( $new_file, $string ) ) {
 		throw new Exception( 'Failed to save readme.txt' );
 	}
-	
+
 	return true;
 }
 
@@ -73,13 +73,16 @@ function wp_readme_convert_string( $string ) {
 		for ( $i = 1, $l = 3 - ( $length - 1 ); $i <= $l; $i ++ ) {
 			$sep .= '=';
 		}
-		
+
 		return "{$sep} {$match[2]} {$sep}";
 	}, $string );
-	
+
 	// Format code.
 	$string = preg_replace( '/```([^\n`]*?)\n(.*?)\n```/us', '<pre>$2</pre>', $string );
-	
+
+	// Fix line breaks before =
+	$string = preg_replace( '/(=+[^\r\n=]+)(\r\n)( =+)', '$1$3', $string );
+
 	return $string;
 }
 
